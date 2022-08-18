@@ -14,6 +14,7 @@ The project is created with:
 * Pinia
 * Vite
 * Supabase
+* Bootstrap 5
 
 ## Project Setup
 ***
@@ -42,4 +43,4 @@ npm run build
 ## Journal
 ***      
 ### **Day 1 - 18/08**
-I have been writting the README file for the project.
+I have been writting the README file for the project and installing Bootstrap 5.
