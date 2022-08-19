@@ -1,4 +1,4 @@
-# Final boiler plate
+# Final .project
 This is the final project done in Frontend Ironhack Bootcamp.
 The project is a duplicate of [TaskApp](https://vue-supabase-todo.vercel.app/auth).
 
@@ -43,4 +43,7 @@ npm run build
 ## Journal
 ***      
 ### **Day 1 - 18/08**
-I have been writting the README file for the project and installing Bootstrap 5.
+I have been writting the README file for the project and installing Bootstrap 5.  
+
+### **Day 2 - 19/08**
+I
