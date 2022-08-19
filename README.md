@@ -1,4 +1,4 @@
-# Final .project
+# Final project
 This is the final project done in Frontend Ironhack Bootcamp.
 The project is a duplicate of [TaskApp](https://vue-supabase-todo.vercel.app/auth).
 
