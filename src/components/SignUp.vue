@@ -8,26 +8,39 @@
 
         <h1 class="mt-5">Register to MyTasks!</h1>
         <p class="">Start Organizing your tasks todays!</p>
+        <p class="text-danger">{{errorMsg}}</p>
       </div>
 
-      <form action="">
+      <form @submit.prevent="signUp">
         <div class="d-flex flex-column | mb-3">
           <label class="form-label" for="email">Email</label>
-          <input class="form-control shadow-sm" type="email" placeholder="example@example.com">
+          <input class="form-control shadow-sm" 
+                 type="email" 
+                 placeholder="example@example.com" 
+                 v-model="email" 
+                 required>
         </div>
 
         <div class="d-flex flex-column | mb-3">
           <label class="form-label" for="password">Password</label>
-          <input class="form-control shadow-sm" type="password" placeholder="**********">
+          <input class="form-control shadow-sm" 
+                 type="password" 
+                 placeholder="**********" 
+                 v-model="password"
+                 required>
         </div>
 
         <div class="d-flex flex-column | mb-3">
           <label class="form-label" for="password">Confirm Password</label>
-          <input class="form-control shadow-sm" type="password" placeholder="**********">
+          <input class="form-control shadow-sm" 
+                 type="password" 
+                 placeholder="**********" 
+                 v-model="confirmPassword"
+                 required>
         </div>
 
         <div class="d-flex flex-column | mb-3">
-          <button class="btn btn-success" type="submit">Sign In</button>
+          <button class="btn btn-success" type="submit">Sign Up</button>
         </div>
       </form>
 
@@ -44,23 +57,60 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
 import PersonalRouter from "./PersonalRouter.vue";
+import { supabase } from "../supabase";
+import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/user";
+import { storeToRefs } from "pinia";
 
 // Route Variables
 const route = "/auth/login";
 const buttonText = "Log In";
 
 // Input Fields
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 
 // Error Message
-
-// Show hide password variable
-
-// Show hide confrimPassword variable
+const errorMsg = ref("");
 
 // Router to push user once SignedUp to Log In
+const redirect = useRouter();
+
+// Show hide password variable
+const passwordFieldType = computed(() =>
+  hidePassword.value ? "password" : "text"
+);
+const hidePassword = ref(true);
+
+// Show hide confirmPassword variable
+
 
 // Arrow function to SignUp user to supaBase with a timeOut() method for showing the error
+const signUp = async () => {
+  if (password.value !== confirmPassword.value) {
+    errorMsg.value = "Passwords do not match";
+
+    setTimeout(() => {
+      errorMsg.value = null;
+    }, 5000);
+    
+  } else {
+    try {
+      await useUserStore().signUp(email.value, password.value);
+      redirect.push({ path: route });
+
+    } catch (error) {
+      errorMsg.value = error.message;
+      
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
+    }
+  }
+};
 </script>
 
 <style>
