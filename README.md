@@ -50,4 +50,4 @@ I have finished the structure of the "SignUp" page and I started to work in the 
 Also, I have finished the implementation of the "SignUp" functionality with Supabase.  
 
 ### **Day 3 - 22/08**
-I
+I have finished the "Sign in" functionality and I implemented the "Nav" component with the "Log Out" functionality in the home.
