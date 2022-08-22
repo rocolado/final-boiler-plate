@@ -47,4 +47,7 @@ I have been writting the README file for the project and installing Bootstrap 5.
 
 ### **Day 2 - 19/08**
 I have finished the structure of the "SignUp" page and I started to work in the styles.
-Also, I have finished the implementation of the "SignUp" functionality with Supabase.
+Also, I have finished the implementation of the "SignUp" functionality with Supabase.  
+
+### **Day 3 - 22/08**
+I

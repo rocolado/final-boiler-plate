@@ -1,8 +1,50 @@
 <template>
-  <div>Sign In</div>
-  <PersonalRouter :route="route" :buttonText="buttonText" />
-  <p>Time to build up the Final Project!</p>
-  <p class="wu-text">Wu Tang Forever</p>
+  <div class="container | d-flex | justify-content-center">
+    <div class="col-12 col-md-6">
+      <div class="text-center">
+        <a class="" href="#">
+          <img class="" src="https://res.cloudinary.com/dnsnkrcru/image/upload/v1648297523/taskApp/imgs/logo1_ryvwid.svg" alt="Logo">
+        </a>
+
+        <h1 class="mt-5">Log In to MyTasks!</h1>
+        <p class="">Start Organizing your tasks todays!</p>
+        <!-- <p class="text-danger">{{errorMsg}}</p> -->
+      </div>
+
+      <form @submit.prevent="signIn">
+        <div class="d-flex flex-column | mb-3">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-control shadow-sm" 
+                 type="email" 
+                 placeholder="example@example.com" 
+                 v-model="email" 
+                 required>
+        </div>
+
+        <div class="d-flex flex-column | mb-3">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-control shadow-sm" 
+                 type="password" 
+                 placeholder="**********" 
+                 v-model="password"
+                 required>
+        </div>
+
+        <div class="d-flex flex-column | mb-3">
+          <button class="btn btn-success" type="submit">Sign In</button>
+        </div>
+      </form>
+
+      <div class="d-flex | justify-content-center">
+        <p class="">Don't have an account?</p>
+        <PersonalRouter :route="route" :buttonText="buttonText"/>
+      </div>
+    </div>
+
+    <div class="col-md-6 | d-none d-md-flex" id="bg-image">
+      <img class="bg-image" src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Background image">
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -15,7 +57,7 @@ import { storeToRefs } from "pinia";
 
 // Route Variables
 const route = "/auth/sign-up";
-const buttonText = "Test the Sign Up Route";
+const buttonText = "Sign Up";
 
 // Input Fields
 const email = ref("");
@@ -35,6 +77,12 @@ const redirect = useRouter();
 
 // Arrow function to Signin user to supaBase
 const signIn = async () => {
+  // if () {
+  //   errorMsg.value = "Error: You must provide either an email and a password";
+  // } else {
+
+  // }
+
   try {
     // calls the user store and send the users info to backend to logIn
     await useUserStore().signIn(email.value, password.value);
@@ -52,27 +100,5 @@ const signIn = async () => {
 </script>
 
 <style>
-.wu-text {
-  color: black;
-}
 
-.form {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
-}
-.input {
-  color: black;
-  margin-bottom: 1rem;
-}
-.button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 </style>
