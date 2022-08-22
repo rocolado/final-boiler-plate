@@ -8,7 +8,7 @@
 
         <h1 class="mt-5">Log In to MyTasks!</h1>
         <p class="">Start Organizing your tasks todays!</p>
-        <!-- <p class="text-danger">{{errorMsg}}</p> -->
+        <p class="text-danger">{{errorMsg}}</p>
       </div>
 
       <form @submit.prevent="signIn">
@@ -50,7 +50,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import PersonalRouter from "./PersonalRouter.vue";
-import { supabase } from "../supabase";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../stores/user";
 import { storeToRefs } from "pinia";
@@ -77,21 +76,13 @@ const redirect = useRouter();
 
 // Arrow function to Signin user to supaBase
 const signIn = async () => {
-  // if () {
-  //   errorMsg.value = "Error: You must provide either an email and a password";
-  // } else {
-
-  // }
-
   try {
-    // calls the user store and send the users info to backend to logIn
     await useUserStore().signIn(email.value, password.value);
-    // redirects user to the homeView
     redirect.push({ path: "/" });
+
   } catch (error) {
-    // displays error message
     errorMsg.value = `Error: ${error.message}`;
-    // hides error message
+    
     setTimeout(() => {
       errorMsg.value = null;
     }, 5000);
