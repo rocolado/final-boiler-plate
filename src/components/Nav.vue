@@ -1,8 +1,11 @@
 <template>
-  <div>Nav Component</div>
-  <button class="btn btn-success" @click="signOut">{{buttonText}}</button>
+  <router-link :to="homeRoute">
+    <img class="" src="https://res.cloudinary.com/dnsnkrcru/image/upload/v1648481844/taskApp/imgs/logo-small_bh8xj2.svg" alt="Logo">
+  </router-link>
 
-  <span>{{user}}</span>
+  <span>Welcome Back {{user}}</span>
+
+  <button class="btn btn-success" @click="signOut">{{buttonText}}</button>
 </template>
 
 <script setup>
@@ -11,8 +14,10 @@ import { useRouter } from "vue-router";
 import { useUserStore } from "../stores/user";
 
 // Route Variable
-const route = "/auth/login";
+const logInRoute = "/auth/login";
 const buttonText = "Log Out";
+
+const homeRoute = "/";
 
 // Router to push user once SignedOut to the SignIn view
 const redirect = useRouter();
@@ -30,7 +35,7 @@ const user = computed(() => {
 const signOut = async () => {
   try {
     await useUserStore().signOut();
-    redirect.push({ path: route });
+    redirect.push({ path: logInRoute });
 
   } catch (error) {
     console.log(error);
