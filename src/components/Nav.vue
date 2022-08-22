@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../stores/user";
 
@@ -22,21 +22,18 @@ const cleanEmail = (user) => user.split("@")[0];
 const user = computed(() => {
   useUserStore().fetchUser();
 
-  return cleanEmail(useUserStore().user.email);
+  if(useUserStore().user !== null) {
+    return cleanEmail(useUserStore().user.email);
+  }
 });
 
 const signOut = async () => {
-  console.log("sign out");
   try {
     await useUserStore().signOut();
     redirect.push({ path: route });
 
   } catch (error) {
-    // errorMsg.value = `Error: ${error.message}`;
-    
-    // setTimeout(() => {
-    //   errorMsg.value = null;
-    // }, 5000);
+    console.log(error);
   }
 };
 </script>
