@@ -6,7 +6,7 @@
 
     <hr>
 
-    <p class="text-center | fw-bold">© 2022 MyTasks!. All rights reserved. Built by Rocío Colado ⚡</p>
+    <p class="text-center | fs-5">© 2022 MyTasks! All rights reserved. Built by Rocío Colado ⚡</p>
   </div>
 </template>
 
@@ -16,4 +16,8 @@
 const homeRoute = "/";
 </script>
 
-<style></style>
+<style>
+  img {
+    height: 36px;
+  }
+</style>

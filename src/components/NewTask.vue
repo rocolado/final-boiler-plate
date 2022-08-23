@@ -2,9 +2,9 @@
   <div class="container | col-10 | d-flex flex-column | justify-content-center">
     <div class="text-center">
       <span>TASK</span>
-      <h1>Add a new Task</h1>
-      <h2>Keep your life organized, prepare for a trip? Start here</h2>
-      <h3>Today's Date is </h3>
+      <h1 class="fw-bold">Add a new Task</h1>
+      <h2 class="fs-5">Keep your life organized, prepare for a trip? Start here</h2>
+      <h3 class="fs-6">Today's Date is {{today}}</h3>
     </div>
 
     <form @submit.prevent="addTask">
@@ -12,67 +12,74 @@
         <input class="form-control shadow-sm | py-2" 
                type="text" 
                placeholder="Add a Task Title" 
-               v-model="title" 
-               required>
+               v-model="title">
       </div>
 
       <div class="mb-3">
         <input class="form-control shadow-sm | py-2" 
                type="text" 
                placeholder="Add a Task Description" 
-               v-model="description"
-               required>
+               v-model="description">
       </div>
 
       <div class="d-flex flex-column | mb-3">
         <button class="btn btn-success" type="submit">Add</button>
       </div>
+
+      <div v-if="errorMsg !== ''">
+        <p class="text-danger text-center">{{errorMsg}}</p>
+      </div>
     </form>
+
   </div>
 </template>
 
 <script setup>
-// import { useTaskStore } from "../stores/task";
+import { ref } from "vue";
+import { useTaskStore } from "../stores/task";
 
-// // Input Fields
-// const title = ref("");
-// const description = ref("");
+const today = `${new Date().toLocaleDateString('en-us', {month:"short", day:"numeric", year:"numeric"})}`;
 
-// // Arrow function to SignIn user to supaBase
-// const addTask = async () => {
-//   try {
-//     await useTaskStore().addTask(title.value, description.value);
-//     redirect.push({ path: "/" });
+// Input Fields
+const title = ref("");
+const description = ref("");
 
-//   } catch (error) {
-//     errorMsg.value = `Error: ${error.message}`;
-    
-//     setTimeout(() => {
-//       errorMsg.value = null;
-//     }, 5000);
-//   }
-// };
+// Error Message
+const errorMsg = ref("");
+
+// Arrow function to SignIn user to supaBase
+const addTask = async () => {
+  if (!title.value && !description.value) {
+    errorMsg.value = "Title & Description are needed";
+
+    setTimeout(() => {
+      errorMsg.value = null;
+    }, 5000);
+
+  } else {
+    try {
+      await useTaskStore().addTask(title.value, description.value);
+      title.value = "";
+      description.value = "";
+  
+    } catch (error) {
+      console.log("Error", error);
+      errorMsg.value = "Title & Description are needed";
+      
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
+    } 
+  }
+};
 // constant to save a variable that define the custom event that will be emitted to 
 //the homeView
 
-// constant to save a variable that holds the value of the title input field of 
-//the new task
 
-// constant to save a variable that holds the value of the description input field of 
-//the new task
-
-// constant to save a variable that holds an initial false boolean value for the 
-//errorMessage container that is conditionally displayed depending if the input field 
-//is empty
-
-// const constant to save a variable that holds the value of the error message
-
-// arrow function to call the form holding the task title and task description that 
-//uses a conditional to first checks if the task title is empty, if true the error 
-//message is displayed through the errorMessage container and sets a timeOut method that 
-//hides the error after some time. Else, its emmits a custom event to the home view 
-//with the task title and task description; clears the task title and task 
-//description input fields.
 </script>
 
-<style></style>
+<style>
+  h1 {
+    font-size: 48px;
+  }
+</style>
