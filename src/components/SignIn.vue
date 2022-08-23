@@ -74,7 +74,7 @@ const hidePassword = ref(true);
 // Router to push user once SignedIn to the HomeView
 const redirect = useRouter();
 
-// Arrow function to Signin user to supaBase
+// Arrow function to SignIn user to supaBase
 const signIn = async () => {
   try {
     await useUserStore().signIn(email.value, password.value);

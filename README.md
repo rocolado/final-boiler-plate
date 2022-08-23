@@ -51,3 +51,6 @@ Also, I have finished the implementation of the "SignUp" functionality with Supa
 
 ### **Day 3 - 22/08**
 I have finished the "Sign in" functionality and I implemented the "Nav" component with the "Log Out" functionality in the home.
+  
+### **Day 4 - 23/08**
+I 
