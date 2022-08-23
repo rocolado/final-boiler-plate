@@ -1,27 +1,38 @@
 <template>
   <Nav/>
   <NewTask @task="addNewTask"/>
-  <div style="border: 1px solid red;" v-if="taskList.length > 0">
-    <p v-for="task in taskList" :key="task">Hello</p>
+  
+  <div v-for="task in taskList" :key="task.id">
+    <TaskItem/>
   </div>
-  <!-- <TaskItem/> -->
+  
   <Footer/>
 </template>
 
 <script setup>
-import Nav from "../components/Nav.vue";
-import NewTask from "../components/NewTask.vue";
-import TaskItem from "../components/TaskItem.vue";
-import Footer from "../components/Footer.vue";
+  import Nav from "../components/Nav.vue";
+  import NewTask from "../components/NewTask.vue";
+  import TaskItem from "../components/TaskItem.vue";
+  import Footer from "../components/Footer.vue";
+  import { useTaskStore } from "../stores/task";
 
-const taskList = [];
+  const taskList = [];
 
-const addNewTask = (task) => {
-  console.log("Antes", taskList);
-  this.taskList.push(task[0]);
-  console.log("Después", taskList);
-}
+  const fetchTasks = async () => {
+    const tasks = await useTaskStore().fetchTasks();
 
+    for (let task of tasks) {
+      taskList.push(task);
+    }
+  }
+
+  const addNewTask = (task) => {
+    console.log("Antes", taskList);
+    taskList.push(task[0]);
+    console.log("Después", taskList);
+  }
+
+  fetchTasks();
 </script>
 
 <style></style>
