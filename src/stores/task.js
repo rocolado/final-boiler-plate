@@ -28,6 +28,8 @@ export const useTaskStore = defineStore("tasks", {
         },
       ]);
       if (error) throw error;
+
+      if (data) return data;
     },
   },
 });

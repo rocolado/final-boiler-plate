@@ -57,60 +57,60 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import PersonalRouter from "./PersonalRouter.vue";
-import { supabase } from "../supabase";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user";
-import { storeToRefs } from "pinia";
+  import { ref, computed } from "vue";
+  import PersonalRouter from "./PersonalRouter.vue";
+  import { supabase } from "../supabase";
+  import { useRouter } from "vue-router";
+  import { useUserStore } from "../stores/user";
+  import { storeToRefs } from "pinia";
 
-// Route Variables
-const route = "/auth/login";
-const buttonText = "Log In";
+  // Route Variables
+  const route = "/auth/login";
+  const buttonText = "Log In";
 
-// Input Fields
-const email = ref("");
-const password = ref("");
-const confirmPassword = ref("");
+  // Input Fields
+  const email = ref("");
+  const password = ref("");
+  const confirmPassword = ref("");
 
-// Error Message
-const errorMsg = ref("");
+  // Error Message
+  const errorMsg = ref("");
 
-// Router to push user once SignedUp to Log In
-const redirect = useRouter();
+  // Router to push user once SignedUp to Log In
+  const redirect = useRouter();
 
-// Show hide password variable
-const passwordFieldType = computed(() =>
-  hidePassword.value ? "password" : "text"
-);
-const hidePassword = ref(true);
+  // Show hide password variable
+  const passwordFieldType = computed(() =>
+    hidePassword.value ? "password" : "text"
+  );
+  const hidePassword = ref(true);
 
-// Show hide confirmPassword variable
+  // Show hide confirmPassword variable
 
 
-// Arrow function to SignUp user to supaBase with a timeOut() method for showing the error
-const signUp = async () => {
-  if (password.value !== confirmPassword.value) {
-    errorMsg.value = "Passwords do not match";
+  // Arrow function to SignUp user to supaBase with a timeOut() method for showing the error
+  const signUp = async () => {
+    if (password.value !== confirmPassword.value) {
+      errorMsg.value = "Passwords do not match";
 
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-    
-  } else {
-    try {
-      await useUserStore().signUp(email.value, password.value);
-      redirect.push({ path: route });
-
-    } catch (error) {
-      errorMsg.value = error.message;
-      
       setTimeout(() => {
         errorMsg.value = null;
       }, 5000);
+      
+    } else {
+      try {
+        await useUserStore().signUp(email.value, password.value);
+        redirect.push({ path: route });
+
+      } catch (error) {
+        errorMsg.value = error.message;
+        
+        setTimeout(() => {
+          errorMsg.value = null;
+        }, 5000);
+      }
     }
-  }
-};
+  };
 </script>
 
 <style>

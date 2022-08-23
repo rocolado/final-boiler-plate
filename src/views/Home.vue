@@ -1,7 +1,10 @@
 <template>
   <Nav/>
-  <NewTask/>
-  <TaskItem/>
+  <NewTask @task="addNewTask"/>
+  <div style="border: 1px solid red;" v-if="taskList.length > 0">
+    <p v-for="task in taskList" :key="task">Hello</p>
+  </div>
+  <!-- <TaskItem/> -->
   <Footer/>
 </template>
 
@@ -10,6 +13,14 @@ import Nav from "../components/Nav.vue";
 import NewTask from "../components/NewTask.vue";
 import TaskItem from "../components/TaskItem.vue";
 import Footer from "../components/Footer.vue";
+
+const taskList = [];
+
+const addNewTask = (task) => {
+  console.log("Antes", taskList);
+  this.taskList.push(task[0]);
+  console.log("Después", taskList);
+}
 
 </script>
 

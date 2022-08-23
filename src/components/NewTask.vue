@@ -35,47 +35,53 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useTaskStore } from "../stores/task";
+  import { ref } from "vue";
+  import { useTaskStore } from "../stores/task";
+  import { getCurrentInstance } from 'vue';
 
-const today = `${new Date().toLocaleDateString('en-us', {month:"short", day:"numeric", year:"numeric"})}`;
+  const { emit } = getCurrentInstance();
 
-// Input Fields
-const title = ref("");
-const description = ref("");
+  const today = `${new Date().toLocaleDateString('en-us', {month:"short", day:"numeric", year:"numeric"})}`;
 
-// Error Message
-const errorMsg = ref("");
+  // Input Fields
+  const title = ref("");
+  const description = ref("");
 
-// Arrow function to SignIn user to supaBase
-const addTask = async () => {
-  if (!title.value && !description.value) {
-    errorMsg.value = "Title & Description are needed";
+  // Error Message
+  const errorMsg = ref("");
 
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-
-  } else {
-    try {
-      await useTaskStore().addTask(title.value, description.value);
-      title.value = "";
-      description.value = "";
-  
-    } catch (error) {
-      console.log("Error", error);
+  // Arrow function to SignIn user to supaBase
+  const addTask = async () => {
+    if (!title.value && !description.value) {
       errorMsg.value = "Title & Description are needed";
-      
+
       setTimeout(() => {
         errorMsg.value = null;
       }, 5000);
-    } 
-  }
-};
+
+    } else {
+      let task = null;
+
+      try {
+        task = await useTaskStore().addTask(title.value, description.value);
+        title.value = "";
+        description.value = "";
+
+    
+      } catch (error) {
+        console.log("Error", error);
+        errorMsg.value = "Title & Description are needed";
+        
+        setTimeout(() => {
+          errorMsg.value = null;
+        }, 5000);
+      } 
+
+      emit("task", task);
+    }
+  };
 // constant to save a variable that define the custom event that will be emitted to 
 //the homeView
-
-
 </script>
 
 <style>

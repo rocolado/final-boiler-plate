@@ -9,38 +9,38 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user";
+  import { computed } from "vue";
+  import { useRouter } from "vue-router";
+  import { useUserStore } from "../stores/user";
 
-// Route Variable
-const logInRoute = "/auth/login";
-const buttonText = "Log Out";
+  // Route Variable
+  const logInRoute = "/auth/login";
+  const buttonText = "Log Out";
 
-const homeRoute = "/";
+  const homeRoute = "/";
 
-// Router to push user once SignedOut to the SignIn view
-const redirect = useRouter();
+  // Router to push user once SignedOut to the SignIn view
+  const redirect = useRouter();
 
-const cleanEmail = (user) => user.split("@")[0];
+  const cleanEmail = (user) => user.split("@")[0];
 
-const user = computed(() => {
-  useUserStore().fetchUser();
+  const user = computed(() => {
+    useUserStore().fetchUser();
 
-  if(useUserStore().user !== null) {
-    return cleanEmail(useUserStore().user.email);
-  }
-});
+    if(useUserStore().user !== null) {
+      return cleanEmail(useUserStore().user.email);
+    }
+  });
 
-const signOut = async () => {
-  try {
-    await useUserStore().signOut();
-    redirect.push({ path: logInRoute });
+  const signOut = async () => {
+    try {
+      await useUserStore().signOut();
+      redirect.push({ path: logInRoute });
 
-  } catch (error) {
-    console.log(error);
-  }
-};
+    } catch (error) {
+      console.log(error);
+    }
+  };
 </script>
 
 <style></style>

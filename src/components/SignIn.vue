@@ -48,46 +48,46 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import PersonalRouter from "./PersonalRouter.vue";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user";
-import { storeToRefs } from "pinia";
+  import { ref, computed } from "vue";
+  import PersonalRouter from "./PersonalRouter.vue";
+  import { useRouter } from "vue-router";
+  import { useUserStore } from "../stores/user";
+  import { storeToRefs } from "pinia";
 
-// Route Variables
-const route = "/auth/sign-up";
-const buttonText = "Sign Up";
+  // Route Variables
+  const route = "/auth/sign-up";
+  const buttonText = "Sign Up";
 
-// Input Fields
-const email = ref("");
-const password = ref("");
+  // Input Fields
+  const email = ref("");
+  const password = ref("");
 
-// Error Message
-const errorMsg = ref("");
+  // Error Message
+  const errorMsg = ref("");
 
-//Show hide password variables
-const passwordFieldType = computed(() =>
-  hidePassword.value ? "password" : "text"
-);
-const hidePassword = ref(true);
+  //Show hide password variables
+  const passwordFieldType = computed(() =>
+    hidePassword.value ? "password" : "text"
+  );
+  const hidePassword = ref(true);
 
-// Router to push user once SignedIn to the HomeView
-const redirect = useRouter();
+  // Router to push user once SignedIn to the HomeView
+  const redirect = useRouter();
 
-// Arrow function to SignIn user to supaBase
-const signIn = async () => {
-  try {
-    await useUserStore().signIn(email.value, password.value);
-    redirect.push({ path: "/" });
+  // Arrow function to SignIn user to supaBase
+  const signIn = async () => {
+    try {
+      await useUserStore().signIn(email.value, password.value);
+      redirect.push({ path: "/" });
 
-  } catch (error) {
-    errorMsg.value = `Error: ${error.message}`;
-    
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-  }
-};
+    } catch (error) {
+      errorMsg.value = `Error: ${error.message}`;
+      
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
+    }
+  };
 </script>
 
 <style>
