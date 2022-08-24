@@ -1,29 +1,44 @@
 <template>
   <div>
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69"  xmlns:v="https://vecta.io/nano"><path d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z" fill="#41b883"/><path d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z" fill="#34495e"/></svg> -->
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
 
     <h4>{{task.title}}</h4>
     <p>{{task.description}}</p>
     
     <div>
-      <button class="btn" :class="[complete ? 'btn-info' : 'btn-success']" @click="completeTask">{{textButton}}</button>
+      <button class="btn btn-success" v-if="!complete" @click="completeTask">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+      </button>
 
-      <button class="btn btn-warning" @click="edit = !edit">Edit</button>
-      <button class="btn btn-danger" @click="deleteTask">Delete</button>
+      <button class="btn btn-info" v-else @click="completeTask">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path></svg>
+      </button>
+
+      <button class="btn btn-warning" @click="edit = !edit">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+      </button>
+
+      <button class="btn btn-danger" @click="deleteTask">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+      </button>
     </div>
 
     <div v-if="edit">
       <input class=""
              type="text" 
-             placeholder="title"
+             placeholder="Edit title"
              v-model="title">
 
       <input class=""
              type="text" 
-             placeholder="description"
+             placeholder="Edit description"
              v-model="description">
 
       <button class="btn btn-info" @click="updateTask">Add</button>
+
+      <div v-if="errorMsg !== ''">
+        <p class="text-danger text-center">{{errorMsg}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +48,6 @@
   import { useTaskStore } from "../stores/task";
   import { getCurrentInstance } from 'vue';
   
-  // const emit = defineEmits(["fetch-task"]);
   const { emit } = getCurrentInstance();
 
   const props = defineProps(["task"]);
@@ -42,23 +56,19 @@
 
   const edit = ref(false);
 
-  const textButton = ref(props.task.is_complete ? "Uncomplete" : "Complete");
-
   // Input Fields
   const title = ref("");
   const description = ref("");
 
-  const completeTask = async () => {
-    console.log("valor del complete", complete.value);
+  // Error Message
+  const errorMsg = ref("");
+  
 
+  const completeTask = async () => {
     try {
-      const task = await useTaskStore().completeTask(props.task.id, !props.task.is_complete);
+      const task = await useTaskStore().completeTask(props.task.id, !complete.value);
 
       complete.value = task[0].is_complete;
-      console.log("valor del complete después", complete.value);
-
-      textButton.value = task[0].is_complete ? "Uncomplete" : "Complete";
-      console.log("valor del text button", textButton.value);
 
     } catch (error) {
       console.log(error);
@@ -66,18 +76,27 @@
   };
 
   const updateTask = async () => {
-    try {
-      props.task.title = title.value;
-      props.task.description = description.value;
+    if (!title.value && !description.value) {
+      errorMsg.value = "Fields cannot be empty";
+
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
+
+    } else { 
+      try {
+        props.task.title = title.value;
+        props.task.description = description.value;
+    
+        await useTaskStore().updateTask(props.task);
   
-      await useTaskStore().updateTask(props.task);
-
-      title.value = "";
-      description.value = "";
-      edit.value = !edit.value;
-
-    } catch (error) {
-      console.log(error);
+        title.value = "";
+        description.value = "";
+        edit.value = !edit.value;
+  
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -95,7 +114,11 @@
   };
 </script>
 
-<style></style>
+<style>
+  svg {
+    height: 20px;
+  }
+</style>
 
 <!-- 
 **Hints**

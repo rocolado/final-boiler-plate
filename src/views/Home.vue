@@ -2,8 +2,12 @@
   <Nav/>
   <NewTask @task="addNewTask"/>
   
-  <div v-for="task in taskList" :key="task.id">
-    <TaskItem @fetch-task="fetchTasks" :task="task"/>
+  <div v-if="errorMsg === ''">
+    <TaskItem v-for="task in taskList" :key="task.id" @fetch-task="fetchTasks" :task="task"/>
+  </div>
+
+  <div v-else>
+    <p class="text-danger text-center">{{errorMsg}}</p>
   </div>
   
   <Footer/>
@@ -25,7 +29,6 @@
   const fetchTasks = async () => {
     try {
       taskList.value = await useTaskStore().fetchTasks();
-      console.lof(taskList.value);
 
     } catch (error) {
       errorMsg.value = error.message;
@@ -39,7 +42,9 @@
   fetchTasks();
 
   const addNewTask = (task) => {
-    taskList.value.push(task[0]);
+    if (task) {
+      taskList.value.push(task[0]);
+    }
   }
 </script>
 

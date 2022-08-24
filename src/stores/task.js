@@ -9,10 +9,12 @@ export const useTaskStore = defineStore("tasks", {
 
   actions: {
     async fetchTasks() {
-      const { data: tasks } = await supabase
+      const { data: tasks, error } = await supabase
         .from("tasks")
         .select("*")
         .order("id", { ascending: false });
+        
+      if (error) throw error;
       this.tasks = tasks;
       return this.tasks;
     },
@@ -40,7 +42,6 @@ export const useTaskStore = defineStore("tasks", {
     },
 
     async updateTask(task) {
-      console.log("updatetask", task);
       const { data, error } = await supabase.from("tasks").update({title: task.title, description: task.description}).match({id: task.id});
       
       if (error) throw error;

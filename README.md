@@ -57,4 +57,5 @@ I have been working in "NewTask" component, saving in Supabase database the new 
 Also, I started the comunication between the "Home" component and "NewTask" component to share the data between those.  
 
 ### **Day 5 - 24/08**
-I
+Today I have finished all the functionalities of "TaskItem" component. 
+I have implemented the functionality of show and hide the password fields of "SignIn" and "SignUp" components too.

@@ -66,11 +66,10 @@
         task = await useTaskStore().addTask(title.value, description.value);
         title.value = "";
         description.value = "";
-
     
       } catch (error) {
         console.log("Error", error);
-        errorMsg.value = "Title & Description are needed";
+        errorMsg.value = error.message;
         
         setTimeout(() => {
           errorMsg.value = null;
@@ -80,8 +79,6 @@
       emit("task", task);
     }
   };
-// constant to save a variable that define the custom event that will be emitted to 
-//the homeView
 </script>
 
 <style>
