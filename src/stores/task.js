@@ -27,9 +27,24 @@ export const useTaskStore = defineStore("tasks", {
           description: description,
         },
       ]);
+      
       if (error) throw error;
-
       if (data) return data;
     },
+
+    async completeTask(id, complete) {
+      const { data, error } = await supabase.from("tasks").update({is_complete: complete}).match({id: id});
+      
+      if (error) throw error;
+      if (data) return data;
+    },
+
+    async updateTask(task) {
+      console.log("updatetask", task);
+      const { data, error } = await supabase.from("tasks").update({title: task.title, description: task.description}).match({id: task.id});
+      
+      if (error) throw error;
+      if (data) return data;
+    }
   },
 });

@@ -53,5 +53,8 @@ Also, I have finished the implementation of the "SignUp" functionality with Supa
 I have finished the "SignIn" functionality and I implemented the "Nav" component with the "Log Out" functionality in the home.
   
 ### **Day 4 - 23/08**
-I have been working in "NewTask" component to save in Supabase database the new task that I created.
-Also, I started the comunication between the "Home" component and "NewTask" component to share the data between those.
+I have been working in "NewTask" component, saving in Supabase database the new task that I created.
+Also, I started the comunication between the "Home" component and "NewTask" component to share the data between those.  
+
+### **Day 5 - 24/08**
+I

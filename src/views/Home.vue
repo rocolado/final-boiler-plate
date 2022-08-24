@@ -3,7 +3,7 @@
   <NewTask @task="addNewTask"/>
   
   <div v-for="task in taskList" :key="task.id">
-    <TaskItem/>
+    <TaskItem :task="task"/>
   </div>
   
   <Footer/>
@@ -14,25 +14,33 @@
   import NewTask from "../components/NewTask.vue";
   import TaskItem from "../components/TaskItem.vue";
   import Footer from "../components/Footer.vue";
+  import { ref } from "vue";
   import { useTaskStore } from "../stores/task";
 
-  const taskList = [];
+  const taskList = ref([]);
+
+  // Error Message
+  const errorMsg = ref("");
 
   const fetchTasks = async () => {
-    const tasks = await useTaskStore().fetchTasks();
+    try {
+      taskList.value = await useTaskStore().fetchTasks();
+      console.lof(taskList.value);
 
-    for (let task of tasks) {
-      taskList.push(task);
+    } catch (error) {
+      errorMsg.value = error.message;
+      
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
     }
   }
 
-  const addNewTask = (task) => {
-    console.log("Antes", taskList);
-    taskList.push(task[0]);
-    console.log("Después", taskList);
-  }
-
   fetchTasks();
+
+  const addNewTask = (task) => {
+    taskList.value.push(task[0]);
+  }
 </script>
 
 <style></style>
