@@ -6,7 +6,6 @@
     <p>{{task.description}}</p>
     
     <div>
-      <!-- <button class="btn btn-success" v-if="!complete" @click="completeTask">Complete</button> -->
       <button class="btn" :class="[complete ? 'btn-info' : 'btn-success']" @click="completeTask">{{textButton}}</button>
 
       <button class="btn btn-warning" @click="edit = !edit">Edit</button>
@@ -32,10 +31,10 @@
 <script setup>
   import { ref } from "vue";
   import { useTaskStore } from "../stores/task";
-  // const emit = defineEmits([
-  //   "ENTER-EMITS-HERE"
-
-  // ]);
+  import { getCurrentInstance } from 'vue';
+  
+  // const emit = defineEmits(["fetch-task"]);
+  const { emit } = getCurrentInstance();
 
   const props = defineProps(["task"]);
   
@@ -51,7 +50,7 @@
 
   const completeTask = async () => {
     console.log("valor del complete", complete.value);
-    
+
     try {
       const task = await useTaskStore().completeTask(props.task.id, !props.task.is_complete);
 
@@ -76,6 +75,19 @@
       title.value = "";
       description.value = "";
       edit.value = !edit.value;
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteTask = async () => {
+    try {
+      const deletedTask= await useTaskStore().deleteTask(props.task.id);
+
+      if (deletedTask) {
+        emit("fetch-task");
+      } 
 
     } catch (error) {
       console.log(error);

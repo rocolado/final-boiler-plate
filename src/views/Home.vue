@@ -3,7 +3,7 @@
   <NewTask @task="addNewTask"/>
   
   <div v-for="task in taskList" :key="task.id">
-    <TaskItem :task="task"/>
+    <TaskItem @fetch-task="fetchTasks" :task="task"/>
   </div>
   
   <Footer/>

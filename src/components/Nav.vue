@@ -1,11 +1,15 @@
 <template>
-  <router-link :to="homeRoute">
-    <img class="" src="https://res.cloudinary.com/dnsnkrcru/image/upload/v1648481844/taskApp/imgs/logo-small_bh8xj2.svg" alt="Logo">
-  </router-link>
+  <div class="container | col-12 | d-flex | justify-content-between | px-3 my-4">
+    <router-link :to="homeRoute">
+      <img class="" src="https://res.cloudinary.com/dnsnkrcru/image/upload/v1648481844/taskApp/imgs/logo-small_bh8xj2.svg" alt="Logo">
+    </router-link>
 
-  <span>Welcome Back {{user}}</span>
+    <div class="d-flex | justify-content-end align-items-center">
+      <p class="text-end | m-0">Welcome Back <span class="fw-bold">{{user}}</span></p>
 
-  <button class="btn btn-success" @click="signOut">{{buttonText}}</button>
+      <button class="btn btn-success" @click="signOut">{{buttonText}}</button>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -43,4 +47,8 @@
   };
 </script>
 
-<style></style>
+<style>
+  img {
+    height: 24px;
+  }
+</style>
