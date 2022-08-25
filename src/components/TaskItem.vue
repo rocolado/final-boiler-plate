@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+  <div class="bg-white | rounded shadow | px-4 pt-3 pb-4">
+    <div class="d-flex | justify-content-center">
+      <div id="svg">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+      </div>
+    </div>
 
-    <h4>{{task.title}}</h4>
+    <h4 class="fw-bold">{{task.title}}</h4>
     <p>{{task.description}}</p>
     
-    <div>
+    <div class="d-flex | justify-content-between">
       <button class="btn btn-success" v-if="!complete" @click="completeTask">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
       </button>
@@ -116,7 +120,14 @@
 
 <style>
   svg {
-    height: 20px;
+    color: white;
+    height: 25px;
+  }
+
+  #svg {
+    border-radius: 100px;
+    background-color: #0E9F6E;
+    padding: 10px;
   }
 </style>
 

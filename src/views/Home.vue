@@ -2,13 +2,16 @@
   <Nav/>
   <NewTask @task="addNewTask"/>
   
-  <div v-if="errorMsg === ''">
-    <TaskItem v-for="task in taskList" :key="task.id" @fetch-task="fetchTasks" :task="task"/>
+  <div class="d-flex flex-column | bg-light">
+    <div id="task-item" class="row | justify-content-center | px-4 pb-5 m-0" v-if="errorMsg === ''">
+      <TaskItem class="col-12 col-sm-10 col-lg-5 col-xl-3 | mb-4 mx-2" v-for="task in taskList" :key="task.id" @fetch-task="fetchTasks" :task="task"/>
+    </div>
+
+    <div v-else>
+      <p class="text-danger text-center">{{errorMsg}}</p>
+    </div>
   </div>
 
-  <div v-else>
-    <p class="text-danger text-center">{{errorMsg}}</p>
-  </div>
   
   <Footer/>
 </template>
@@ -48,7 +51,12 @@
   }
 </script>
 
-<style></style>
+<style>
+  /* #task-item {
+    max-width: 896px;
+    margin: auto;
+  } */
+</style>
 
 <!-- 
 **Hints**

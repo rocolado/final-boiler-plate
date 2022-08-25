@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 | d-flex flex-column | justify-content-center | bg-light | px-4 pt-3 pb-5">
+  <div class="col-12 | d-flex flex-column | justify-content-center | bg-light | px-4 py-3">
     <div id="form" class="col-12 col-sm-10">
       <div class="text-center">
         <span id="task" class="fw-bold">TASK</span>
