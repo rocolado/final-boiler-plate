@@ -4,7 +4,7 @@
       <img class="logo" src="https://res.cloudinary.com/dnsnkrcru/image/upload/v1648481844/taskApp/imgs/logo-small_bh8xj2.svg" alt="Logo">
     </router-link>
 
-    <button id="button-menu">
+    <button id="button-menu" @click="showMenu = !showMenu">
       <svg class="menu | d-md-none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50" style="fill: rgb(3, 84, 63);"><path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"></path></svg>
     </button>
 
@@ -14,12 +14,22 @@
       <button id="button-logout" class="btn | ms-5" @click="signOut">{{buttonText}}</button>
     </div>
   </nav>
+
+  <div id="menu-toggle" class="d-flex d-md-none" v-if="showMenu">
+    <div id="menu-items" class="justify-content-center | pb-3 mx-auto">
+      <p id="welcome" class="text-center | my-0">Welcome Back <span class="fw-bold">{{user}}</span></p>
+      
+      <button id="button-logout" class="btn | mt-3" @click="signOut">{{buttonText}}</button>
+    </div>
+  </div>
 </template>
 
 <script setup>
-  import { computed } from "vue";
+  import { ref, computed } from "vue";
   import { useRouter } from "vue-router";
   import { useUserStore } from "../stores/user";
+
+  let showMenu = ref(false);
 
   // Route Variable
   const logInRoute = "/auth/login";
@@ -53,12 +63,20 @@
 
 <style>
   nav {
+    background-color: white;
     max-width: 1280px;
     margin: auto;
   }
 
   .logo {
     height: 24px;
+  }
+
+  #menu-items {
+    width: 100%;
+    text-align: center;
+    overflow: visible;
+    min-width: 200px;
   }
 
   #welcome {

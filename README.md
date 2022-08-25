@@ -59,3 +59,6 @@ Also, I started the comunication between the "Home" component and "NewTask" comp
 ### **Day 5 - 24/08**
 Today I have finished all the functionalities of "TaskItem" component. 
 I have implemented the functionality of show and hide the password inputs of "SignIn" and "SignUp" components too.
+
+### **Day 6 - 25/08**
+I have been working in the styles of the components with Bootstrap 5 and vanilla CSS. Finally, I added the toggle-menu for mobile version.

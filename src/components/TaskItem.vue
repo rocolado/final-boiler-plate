@@ -27,18 +27,18 @@
       </button>
     </div>
 
-    <div v-if="edit">
-      <input class=""
+    <div class="d-flex flex-column" v-if="edit">
+      <input class="form-control shadow-sm | my-4"
              type="text" 
              placeholder="Edit title"
              v-model="title">
 
-      <input class=""
+      <input class="form-control shadow-sm | mb-4"
              type="text" 
              placeholder="Edit description"
              v-model="description">
 
-      <button class="btn btn-info" @click="updateTask">Add</button>
+      <button id="button-complete" class="btn" @click="updateTask">Add</button>
 
       <div v-if="errorMsg !== ''">
         <p class="text-danger text-center">{{errorMsg}}</p>
