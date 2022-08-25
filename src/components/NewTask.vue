@@ -1,36 +1,37 @@
 <template>
-  <div class="container | col-10 | d-flex flex-column | justify-content-center">
-    <div class="text-center">
-      <span>TASK</span>
-      <h1 class="fw-bold">Add a new Task</h1>
-      <h2 class="fs-5">Keep your life organized, prepare for a trip? Start here</h2>
-      <h3 class="fs-6">Today's Date is {{today}}</h3>
+  <div class="col-12 | d-flex flex-column | justify-content-center | bg-light | px-4 pt-3 pb-5">
+    <div id="form" class="col-12 col-sm-10">
+      <div class="text-center">
+        <span>TASK</span>
+        <h1 class="fw-bold">Add a new Task</h1>
+        <h2 class="fs-5">Keep your life organized, prepare for a trip? Start here</h2>
+        <h3 class="fs-6">Today's Date is {{today}}</h3>
+      </div>
+
+      <form @submit.prevent="addTask">
+        <div class="mb-3">
+          <input class="form-control shadow-sm | py-2" 
+                type="text" 
+                placeholder="Add a Task Title" 
+                v-model="title">
+        </div>
+
+        <div class="mb-3">
+          <input class="form-control shadow-sm | py-2" 
+                type="text" 
+                placeholder="Add a Task Description" 
+                v-model="description">
+        </div>
+
+        <div class="d-flex flex-column | mb-3">
+          <button class="btn btn-success" type="submit">Add</button>
+        </div>
+
+        <div v-if="errorMsg !== ''">
+          <p class="text-danger text-center">{{errorMsg}}</p>
+        </div>
+      </form>
     </div>
-
-    <form @submit.prevent="addTask">
-      <div class="mb-3">
-        <input class="form-control shadow-sm | py-2" 
-               type="text" 
-               placeholder="Add a Task Title" 
-               v-model="title">
-      </div>
-
-      <div class="mb-3">
-        <input class="form-control shadow-sm | py-2" 
-               type="text" 
-               placeholder="Add a Task Description" 
-               v-model="description">
-      </div>
-
-      <div class="d-flex flex-column | mb-3">
-        <button class="btn btn-success" type="submit">Add</button>
-      </div>
-
-      <div v-if="errorMsg !== ''">
-        <p class="text-danger text-center">{{errorMsg}}</p>
-      </div>
-    </form>
-
   </div>
 </template>
 
@@ -82,6 +83,11 @@
 </script>
 
 <style>
+  #form {
+    max-width: 896px;
+    margin: auto;
+  }
+
   h1 {
     font-size: 48px;
   }
