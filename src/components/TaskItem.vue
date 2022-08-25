@@ -10,7 +10,7 @@
     <p>{{task.description}}</p>
     
     <div class="d-flex | justify-content-between">
-      <button class="btn btn-success" v-if="!complete" @click="completeTask">
+      <button id="button-complete" class="btn" v-if="!complete" @click="completeTask">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
       </button>
 
@@ -128,6 +128,16 @@
     border-radius: 100px;
     background-color: #0E9F6E;
     padding: 10px;
+  }
+
+  #button-complete {
+    color: white;
+    background-color: rgb(3, 84, 63);
+  }
+
+  #button-complete:hover {
+    color: white;
+    background-color: rgb(19, 104, 81);
   }
 </style>
 

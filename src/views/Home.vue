@@ -51,12 +51,7 @@
   }
 </script>
 
-<style>
-  /* #task-item {
-    max-width: 896px;
-    margin: auto;
-  } */
-</style>
+<style></style>
 
 <!-- 
 **Hints**
