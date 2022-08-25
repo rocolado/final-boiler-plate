@@ -58,4 +58,4 @@ Also, I started the comunication between the "Home" component and "NewTask" comp
 
 ### **Day 5 - 24/08**
 Today I have finished all the functionalities of "TaskItem" component. 
-I have implemented the functionality of show and hide the password fields of "SignIn" and "SignUp" components too.
+I have implemented the functionality of show and hide the password inputs of "SignIn" and "SignUp" components too.
